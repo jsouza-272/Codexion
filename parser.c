@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:25:22 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/21 15:53:41 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/25 16:20:08 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	aux_parser(char *value, int error_id)
 		error(error_id);
 	return (nb);
 }
-
+// test
 t_config	parser(int argc, char **argv)
 {
 	t_config	config;
