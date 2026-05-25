@@ -8,3 +8,28 @@
 -    number_of_compiles_required: int > 0
 -    dongle_cooldown: int > 0 (ms)
 -    scheduler: FIFO | EDF
+
+# Coder e Dongles
+- ## Mesa
+	-	mesa da esquerda
+	-	mesa da direita, 
+	-	coder e dongle
+	-	cada mesa tem um coder e um dongle
+
+- ###	Coder
+	-	cada coder tem suas informacoes  
+		```bash
+		# last compile
+		# thread
+		# time_to_burnout: int > 0 (ms)
+		# time_to_compile: int > 0 (ms)
+		# time_to_debug: int > 0 (ms)
+		# time_to_refactor: int > 0 (ms)
+		```
+
+- ### Dongle
+	-	cada dongle tem suas informacoes
+		```bash
+		# last use
+		# dongle_cooldown: int > 0 (ms)
+		```
