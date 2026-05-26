@@ -33,3 +33,6 @@
 		# last use
 		# dongle_cooldown: int > 0 (ms)
 		```
+
+# Coder
+## Rotina do thread

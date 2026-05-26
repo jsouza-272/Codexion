@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:19:30 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 13:23:17 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/26 14:34:52 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ struct	s_table
 
 // void		*parser(void *tt);
 t_config	parser(int argc, char **argv);
+t_table		*init(t_config c);
 void		error(int error_id);
 
 #endif

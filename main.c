@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:27:50 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 10:07:49 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/26 14:35:05 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void print_config(t_config config)
 int	main(int argc, char **argv)
 {
 	t_config config;
+	t_table *tables;
 
 	config = parser(argc, argv);
-	print_config(config);
+	tables = init(config);
+	// print_config(config);
 }
 
 //void *print_config(void *tt)
