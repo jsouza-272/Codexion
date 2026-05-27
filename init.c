@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 13:53:22 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/27 15:03:15 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ void	create_table(t_table	*table, t_table	*tables,
 {
 	create_coder(&table->coder, c);
 	create_dongle(&table->dongle, c);
-	table->right_table = &tables[(i + 1) % c.number_of_coders];
-	table->left_table = &tables[(i + c.number_of_coders - 1)
+	table->next = &tables[(i + 1) % c.number_of_coders];
+	table->prev = &tables[(i + c.number_of_coders - 1)
 		% c.number_of_coders];
+	table->right_dongle = &tables[(i + 1) % c.number_of_coders].dongle;
 }
 
 void	create_dongle(t_dongle	*dongle, t_config	c)
 {
 	dongle->last_use = 0;
 	dongle->dongle_cooldown = c.dongle_cooldown;
+	pthread_mutex_init(&dongle->lock, NULL);
 }
 
 void	create_coder(t_coder	*coder, t_config	c)

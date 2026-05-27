@@ -11,8 +11,8 @@
 
 # Coder e Dongles
 - ## Mesa
-	-	mesa da esquerda
-	-	mesa da direita, 
+	-	next table
+	-	prev table
 	-	coder e dongle
 	-	cada mesa tem um coder e um dongle
 

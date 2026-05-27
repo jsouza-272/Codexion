@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:19:30 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 14:34:52 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/27 15:03:01 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef	struct	s_dongle
 {
 	int	last_use;
 	int	dongle_cooldown;
+	pthread_mutex_t lock;
 }	t_dongle;
 
 typedef	struct	s_coder
@@ -58,10 +59,11 @@ typedef	struct	s_table	t_table;
 
 struct	s_table
 {
-	t_table		*left_table;
-	t_table		*right_table;
+	t_table		*next;
+	t_table		*prev;
 	t_coder		coder;
 	t_dongle	dongle;
+	t_dongle	*right_dongle;
 };
 
 
@@ -77,5 +79,6 @@ struct	s_table
 t_config	parser(int argc, char **argv);
 t_table		*init(t_config c);
 void		error(int error_id);
+int get_time(void);
 
 #endif

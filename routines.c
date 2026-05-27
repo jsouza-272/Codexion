@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 13:20:17 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/27 13:53:14 by jsouza           ###   ########.fr       */
+/*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
+/*   Updated: 2026/05/27 15:08:39 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-int get_time(void)
+void *coder_routine(void *arg)
 {
-	struct timeval tv;
+	t_table *table;
 
-	gettimeofday(&tv, NULL);
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	table = (t_table *)arg;
+	
 }
