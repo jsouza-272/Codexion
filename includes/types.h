@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.h                                          :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/21 10:19:30 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/27 15:03:01 by jsouza           ###   ########.fr       */
+/*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
+/*   Updated: 2026/05/28 14:30:54 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_H
-# define INCLUDE_H
+#ifndef TYPES_H
+# define TYPES_H
 
 # include <pthread.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/time.h>
-# include <unistd.h>
 
 typedef enum e_scheduler
 {
 	FIFO = 'f',
 	EDF = 'e'
 }	t_scheduler;
+
+typedef struct s_infos
+{
+	pthread_cond_t	cond;
+	pthread_mutex_t	lock;
+	int				*ids;
+	size_t			list_size;
+} t_infos;
+
+typedef struct s_simulation
+{
+	int continue_sim;
+} t_simulation;
 
 typedef struct s_config
 {
@@ -43,6 +51,7 @@ typedef	struct	s_dongle
 	int	last_use;
 	int	dongle_cooldown;
 	pthread_mutex_t lock;
+	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef	struct	s_coder
@@ -59,26 +68,14 @@ typedef	struct	s_table	t_table;
 
 struct	s_table
 {
-	t_table		*next;
-	t_table		*prev;
-	t_coder		coder;
-	t_dongle	dongle;
-	t_dongle	*right_dongle;
+	t_table			*next;
+	t_table			*prev;
+	t_coder			coder;
+	t_dongle		dongle;
+	t_dongle		*right_dongle;
+	t_infos			*infos;
+	t_simulation	*sim;
+	int 			table_id;
 };
-
-
-// typedef struct test
-// {
-	// int argc;
-	// char **argv;
-	// t_config *config;
-	// pthread_mutex_t lock;
-// } test_t;
-
-// void		*parser(void *tt);
-t_config	parser(int argc, char **argv);
-t_table		*init(t_config c);
-void		error(int error_id);
-int get_time(void);
 
 #endif

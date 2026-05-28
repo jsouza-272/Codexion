@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 13:09:25 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/05/28 11:49:46 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/include.h"
+#include "includes/codexion.h"
 
 void	parser_error(int error_id)
 {
@@ -38,7 +38,7 @@ void	parser_error(int error_id)
 	exit(1);
 }
 
-void	error(int error_id)
+void	error(int error_id, t_table *table, t_infos *infos)
 {
 	if (0 <= error_id && error_id <= 8)
 		parser_error(error_id);

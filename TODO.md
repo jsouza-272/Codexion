@@ -9,6 +9,9 @@
 -    dongle_cooldown: int > 0 (ms)
 -    scheduler: FIFO | EDF
 
+### Erros
+-	fazer um enum de erros
+
 # Coder e Dongles
 - ## Mesa
 	-	next table

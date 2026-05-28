@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   in.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 13:20:17 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/27 13:53:14 by jsouza           ###   ########.fr       */
+/*   Created: 2026/05/28 11:14:12 by jsouza            #+#    #+#             */
+/*   Updated: 2026/05/28 11:35:57 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.h"
+#include "includes/codexion.h"
 
-int get_time(void)
+int id_in_ids(int id, int *ids, size_t limit)
 {
-	struct timeval tv;
+	size_t i;
 
-	gettimeofday(&tv, NULL);
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	i = 0;
+	while (i < limit)
+	{
+		if (id == ids[i])
+			return 1;
+		i++;
+	}
+	return 0;
 }
