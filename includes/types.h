@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/28 14:30:54 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/01 14:36:37 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_infos
 	pthread_mutex_t	lock;
 	int				*ids;
 	size_t			list_size;
+	int				last_id;
 } t_infos;
 
 typedef struct s_simulation
@@ -77,5 +78,16 @@ struct	s_table
 	t_simulation	*sim;
 	int 			table_id;
 };
+
+typedef struct s_moder
+{
+	t_table *tables;
+	t_infos *infos;
+	t_simulation *simulation;
+	size_t current_compiles;
+	size_t nbcr;
+	int nb_coders;
+	t_scheduler	scheduler;
+} t_moder;
 
 #endif

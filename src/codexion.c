@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   codexion.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:27:50 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/26 14:35:05 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/01 14:39:05 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/include.h"
+#include "codexion.h"
 
 void print_config(t_config config)
 {
@@ -31,6 +31,7 @@ int	main(int argc, char **argv)
 
 	config = parser(argc, argv);
 	tables = init(config);
+	(void)tables;
 	// print_config(config);
 }
 

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   fifo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 13:20:17 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:39:02 by jsouza           ###   ########.fr       */
+/*   Created: 2026/06/01 11:13:05 by jsouza            #+#    #+#             */
+/*   Updated: 2026/06/01 14:38:54 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int get_time(void)
+void fifo(t_moder *moder)
 {
-	struct timeval tv;
+	int id;
+	size_t i;
 
-	gettimeofday(&tv, NULL);
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	id = moder->infos->last_id;
+	i = 0;
+	while (i < moder->infos->list_size)
+	{
+		moder->infos->ids[i] = id;
+		id = (id + 2) % moder->nb_coders;
+		i++;
+	}
+	moder->infos->last_id = id;
 }

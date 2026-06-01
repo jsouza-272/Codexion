@@ -6,17 +6,24 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/28 11:50:20 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/01 14:44:35 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/codexion.h"
+#include "codexion.h"
+
+void	create_table(t_table	*table, t_table	*tables,
+	t_config	c, size_t	i);
+
+void	create_dongle(t_dongle	*dongle, t_config	c);
+
+void	create_coder(t_coder	*coder, t_config	c, t_table	*table);
 
 t_table	*init(t_config c)
 {
 	t_table	*tables;
 	t_infos *infos;
-	size_t	i;
+	int	i;
 
 	tables = malloc(c.number_of_coders * sizeof(t_table));
 	if (!tables)
@@ -26,7 +33,7 @@ t_table	*init(t_config c)
 		error(10, tables, NULL);
 	infos->ids = malloc(sizeof(int) * (c.number_of_coders / 2));
 	if (!infos->ids)
-		error(11, infos, tables);
+		error(11, tables, infos);
 	infos->list_size = c.number_of_coders / 2;
 	pthread_cond_init(&infos->cond, NULL);
 	pthread_mutex_init(&infos->lock, NULL);
@@ -43,7 +50,7 @@ t_table	*init(t_config c)
 void	create_table(t_table	*table, t_table	*tables,
 	t_config	c, size_t	i)
 {
-	create_coder(&table->coder, c, &table);
+	create_coder(&table->coder, c, table);
 	create_dongle(&table->dongle, c);
 	table->table_id = i;
 	table->next = &tables[(i + 1) % c.number_of_coders];

@@ -6,11 +6,17 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/28 14:41:07 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/01 14:40:52 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/codexion.h"
+#include "codexion.h"
+
+void compile(t_dongle *d1, t_dongle *d2, t_coder *coder);
+
+void debug(t_coder *coder);
+
+void refactor(t_coder *coder);
 
 void *coder_routine(void *arg)
 {
@@ -28,6 +34,7 @@ void *coder_routine(void *arg)
 		debug(&table->coder);
 		refactor(&table->coder);
 	}
+	return (NULL);
 }
 void compile(t_dongle *d1, t_dongle *d2, t_coder *coder)
 {
