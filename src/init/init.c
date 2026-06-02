@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 10:37:57 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 12:02:42 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ t_moder *init(t_config c)
 {
 	t_moder *moder;
 
-	moder = malloc(sizeof(t_moder));
+	moder = ft_calloc(1, sizeof(t_moder));
 	if (!moder)
 		error(9, NULL, NULL);
 	printf("MODER CREATED\n\n");
-	moder->simulation.continue_sim = 1;
-	// printf("HERE\n\n");
+	pthread_cond_init(&moder->cond, NULL);
+	pthread_mutex_init(&moder->lock, NULL);
+	pthread_create(&moder->thread, NULL, &moder_routine, moder);
 	moder->nb_coders = c.number_of_coders;
 	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
 	moder->scheduler = c.scheduler;
@@ -38,7 +39,8 @@ t_moder *init(t_config c)
 	moder->tables = init_tables(c, moder);
 	moder->infos = moder->tables->infos;
 	printf("TABLES CREATED\n\n");
-	pthread_create(&moder->thread, NULL, &moder_routine, moder);
+	moder->simulation.continue_sim = 1;
+	pthread_cond_broadcast(&moder->cond);
 	return (moder);
 }
 
@@ -48,13 +50,13 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	t_infos *infos;
 	int	i;
 
-	tables = malloc(c.number_of_coders * sizeof(t_table));
+	tables = ft_calloc(c.number_of_coders, sizeof(t_table));
 	if (!tables)
 		error(10, NULL, NULL);
-	infos = malloc(sizeof(t_infos));
+	infos = ft_calloc(1, sizeof(t_infos));
 	if (!infos)
 		error(11, tables, NULL);
-	infos->ids = malloc(sizeof(int) * (c.number_of_coders / 2));
+	infos->ids = ft_calloc(c.number_of_coders / 2, sizeof(int));
 	if (!infos->ids)
 		error(12, tables, infos);
 	infos->list_size = c.number_of_coders / 2;
@@ -74,13 +76,13 @@ t_table	*init_tables(t_config c, t_moder *moder)
 void	create_table(t_table	*table, t_table	*tables,
 	t_config	c, size_t	i)
 {
-	create_coder(&table->coder, c, table);
-	create_dongle(&table->dongle, c);
-	table->table_id = i;
+	table->table_id = i + 1;
 	table->next = &tables[(i + 1) % c.number_of_coders];
 	table->prev = &tables[(i + c.number_of_coders - 1)
 		% c.number_of_coders];
 	table->right_dongle = &tables[(i + 1) % c.number_of_coders].dongle;
+	create_dongle(&table->dongle, c);
+	create_coder(&table->coder, c, table);
 }
 
 void	create_dongle(t_dongle	*dongle, t_config	c)

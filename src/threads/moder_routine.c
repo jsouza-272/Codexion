@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 11:00:38 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 12:04:07 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,25 @@ void *moder_routine(void *arg)
 	t_moder *moder;
 
 	moder = (t_moder*)arg;
+	pthread_mutex_lock(&moder->lock);
+	while (!moder->simulation.continue_sim)
+		pthread_cond_wait(&moder->cond, &moder->lock);
+	printf("GO GO GO\n");
+	fflush(stdout);
 	while(moder->nbcr > moder->current_compiles)
 	{
-		// printf("MODER DOING\n\n");
 		pthread_mutex_lock(&moder->infos->lock);
 		if (moder->scheduler == FIFO)
 			fifo(moder);
 		else
 			edf(moder);
 		pthread_mutex_unlock(&moder->infos->lock);
-		// printf("%d %d\n", moder->infos->ids[0], moder->infos->ids[1]);
 		pthread_cond_broadcast(&moder->infos->cond);
+		moder->current_compiles++;
+		usleep(moder->tables->coder.time_to_compile * 1000);
 	}
 	moder->simulation.continue_sim = 0;
+	pthread_mutex_unlock(&moder->lock);
 	join_all_threads(moder);
 	return (NULL);
 }

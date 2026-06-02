@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 10:26:52 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 11:58:37 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct s_moder
 	size_t nbcr;
 	int nb_coders;
 	t_scheduler	scheduler;
+	pthread_cond_t cond;
+	pthread_mutex_t lock;
 } t_moder;
 
 #endif
