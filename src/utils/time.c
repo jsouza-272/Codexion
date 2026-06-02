@@ -6,13 +6,13 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:20:17 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:39:02 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:57:38 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int get_time(void)
+size_t get_time(void)
 {
 	struct timeval tv;
 

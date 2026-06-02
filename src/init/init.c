@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:44:35 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:37:57 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,30 @@ void	create_dongle(t_dongle	*dongle, t_config	c);
 
 void	create_coder(t_coder	*coder, t_config	c, t_table	*table);
 
-t_table	*init(t_config c)
+t_table	*init_tables(t_config c, t_moder *moder);
+
+t_moder *init(t_config c)
+{
+	t_moder *moder;
+
+	moder = malloc(sizeof(t_moder));
+	if (!moder)
+		error(9, NULL, NULL);
+	printf("MODER CREATED\n\n");
+	moder->simulation.continue_sim = 1;
+	// printf("HERE\n\n");
+	moder->nb_coders = c.number_of_coders;
+	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
+	moder->scheduler = c.scheduler;
+	moder->current_compiles = 0;
+	moder->tables = init_tables(c, moder);
+	moder->infos = moder->tables->infos;
+	printf("TABLES CREATED\n\n");
+	pthread_create(&moder->thread, NULL, &moder_routine, moder);
+	return (moder);
+}
+
+t_table	*init_tables(t_config c, t_moder *moder)
 {
 	t_table	*tables;
 	t_infos *infos;
@@ -27,13 +50,13 @@ t_table	*init(t_config c)
 
 	tables = malloc(c.number_of_coders * sizeof(t_table));
 	if (!tables)
-		error(9, NULL, NULL);
+		error(10, NULL, NULL);
 	infos = malloc(sizeof(t_infos));
 	if (!infos)
-		error(10, tables, NULL);
+		error(11, tables, NULL);
 	infos->ids = malloc(sizeof(int) * (c.number_of_coders / 2));
 	if (!infos->ids)
-		error(11, tables, infos);
+		error(12, tables, infos);
 	infos->list_size = c.number_of_coders / 2;
 	pthread_cond_init(&infos->cond, NULL);
 	pthread_mutex_init(&infos->lock, NULL);
@@ -42,6 +65,7 @@ t_table	*init(t_config c)
 	{
 		create_table(&tables[i], tables, c, i);
 		tables[i].infos = infos;
+		tables[i].sim = &moder->simulation;
 		i++;
 	}
 	return tables;

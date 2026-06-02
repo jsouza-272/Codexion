@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:19:30 by jsouza            #+#    #+#             */
-/*   Updated: 2026/05/28 10:34:09 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:25:36 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 # include <unistd.h>
 
 t_config	parser(int argc, char **argv);
-t_table		*init(t_config c);
+t_moder *init(t_config c);
 
 #endif

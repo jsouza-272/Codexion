@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:27:50 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:39:05 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:33:41 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void print_config(t_config config)
 int	main(int argc, char **argv)
 {
 	t_config config;
-	t_table *tables;
+	t_moder *moder;
 
 	config = parser(argc, argv);
-	tables = init(config);
-	(void)tables;
+	printf("PARSER END\n\n");
+	moder = init(config);
+	printf("INIT END\n\n");
+	pthread_join(moder->thread, NULL);
 	// print_config(config);
 }
 

@@ -6,40 +6,46 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:40:52 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 11:24:26 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void compile(t_dongle *d1, t_dongle *d2, t_coder *coder);
+void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id);
 
-void debug(t_coder *coder);
+void debug(t_coder *coder, int id);
 
-void refactor(t_coder *coder);
+void refactor(t_coder *coder, int id);
 
 void *coder_routine(void *arg)
 {
 	t_table *table;
 
 	table = (t_table*)arg;
-	while (table->sim)
+	while (table->sim->continue_sim)
 	{
 		pthread_mutex_lock(&table->infos->lock);
 		while (!id_in_ids(table->table_id, table->infos->ids,
 			table->infos->list_size))
+		{
+			printf("C%d Waiting\n", table->table_id);
 			pthread_cond_wait(&table->infos->cond, &table->infos->lock);
+		}
 		pthread_mutex_unlock(&table->infos->lock);
-		compile(&table->dongle, table->right_dongle, &table->coder);
-		debug(&table->coder);
-		refactor(&table->coder);
+		compile(&table->dongle, table->right_dongle,
+			&table->coder, table->table_id);
+		debug(&table->coder, table->table_id);
+		refactor(&table->coder, table->table_id);
 	}
 	return (NULL);
 }
-void compile(t_dongle *d1, t_dongle *d2, t_coder *coder)
+void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)
 {
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
+	printf("[%zu] C%d COMPILE\n\n", get_time(), id);
+	fflush(stdout);
 	usleep(coder->time_to_compile * 1000);
 	coder->last_compile = get_time();
 	d1->last_use = get_time();
@@ -48,12 +54,16 @@ void compile(t_dongle *d1, t_dongle *d2, t_coder *coder)
 	pthread_mutex_unlock(&d2->lock);
 }
 
-void debug(t_coder *coder)
+void debug(t_coder *coder, int id)
 {
+	printf("[%zu] C%d DEBUG\n\n", get_time(), id);
+	fflush(stdout);
 	usleep(coder->time_to_debug * 1000);
 }
 
-void refactor(t_coder *coder)
+void refactor(t_coder *coder, int id)
 {
+	printf("[%zu] C%d REFACTOR\n\n", get_time(), id);
+	fflush(stdout);
 	usleep(coder->time_to_refactor * 1000);
 }

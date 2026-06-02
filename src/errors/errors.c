@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:46:57 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:36:44 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void	error(int error_id, t_table *table, t_infos *infos)
 	(void)infos;
 	if (0 <= error_id && error_id <= 8)
 		parser_error(error_id);
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/01 14:36:37 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 10:26:52 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ struct	s_table
 
 typedef struct s_moder
 {
+	pthread_t	thread;
 	t_table *tables;
 	t_infos *infos;
-	t_simulation *simulation;
+	t_simulation simulation;
 	size_t current_compiles;
 	size_t nbcr;
 	int nb_coders;
