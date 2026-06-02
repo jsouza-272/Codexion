@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 12:04:07 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/02 12:09:54 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void *moder_routine(void *arg)
 			edf(moder);
 		pthread_mutex_unlock(&moder->infos->lock);
 		pthread_cond_broadcast(&moder->infos->cond);
-		moder->current_compiles++;
 		usleep(moder->tables->coder.time_to_compile * 1000);
+		moder->current_compiles++;
 	}
 	moder->simulation.continue_sim = 0;
 	pthread_mutex_unlock(&moder->lock);
