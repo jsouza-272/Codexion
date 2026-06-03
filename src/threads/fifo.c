@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:13:05 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 12:12:44 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 11:09:18 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void fifo(t_moder *moder)
 	i = 0;
 	while (i < moder->infos->list_size)
 	{
-		moder->infos->ids[i] = id + 1;
+		printf("id %d\n\n", id);
+		moder->infos->ids[i] = id;
 		id = (id + moder->nb_coders / 2) % moder->nb_coders;
 		i++;
 	}

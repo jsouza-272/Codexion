@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 12:01:44 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 11:14:44 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void *coder_routine(void *arg)
 		while (!id_in_ids(table->table_id, table->infos->ids,
 			table->infos->list_size))
 			pthread_cond_wait(&table->infos->cond, &table->infos->lock);
+		printf("%zu (C%d)fui chamado\n", pthread_self(), table->table_id);
 		pthread_mutex_unlock(&table->infos->lock);
 		compile(&table->dongle, table->right_dongle,
 			&table->coder, table->table_id);
