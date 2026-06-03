@@ -11,3 +11,8 @@ run: all
 	clear
 	./codexion 2 1000 100 100 100 5 100 fifo
 	@rm codexion
+
+debug: all
+	clear
+	./codexion 2 1000 100 100 100 5 100 fifo | grep COMPILE
+	@rm codexion

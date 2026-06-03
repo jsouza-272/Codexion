@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 10:37:51 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 12:21:30 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_infos
 typedef struct s_simulation
 {
 	int continue_sim;
+	pthread_cond_t cond;
+	pthread_mutex_t lock;
 } t_simulation;
 
 typedef struct s_config
@@ -89,8 +91,6 @@ typedef struct s_moder
 	size_t nbcr;
 	int nb_coders;
 	t_scheduler	scheduler;
-	pthread_cond_t cond;
-	pthread_mutex_t lock;
 } t_moder;
 
 #endif

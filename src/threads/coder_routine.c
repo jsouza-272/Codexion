@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 11:40:49 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 13:59:31 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void *coder_routine(void *arg)
 	t_table *table;
 
 	table = (t_table*)arg;
+	pthread_mutex_lock(&table->sim->lock);
+	while (!table->sim->continue_sim)
+		pthread_cond_wait(&table->sim->cond, &table->sim->lock);
+	pthread_mutex_unlock(&table->sim->lock);
 	printf("\nsou C%d\n\n", table->table_id);
 	while (table->sim->continue_sim)
 	{
@@ -37,6 +41,7 @@ void *coder_routine(void *arg)
 		debug(&table->coder, table->table_id);
 		refactor(&table->coder, table->table_id);
 	}
+	printf("C%d END\n", table->table_id);
 	return (NULL);
 }
 void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)

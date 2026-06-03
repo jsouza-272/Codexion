@@ -6,14 +6,14 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 11:56:25 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 14:06:37 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
 void	create_table(t_table	*table, t_table	*tables,
-	t_config	c, size_t	i);
+	t_config	c, size_t	i, t_infos *infos, t_simulation *sim);
 
 void	create_dongle(t_dongle	*dongle, t_config	c);
 
@@ -29,18 +29,18 @@ t_moder *init(t_config c)
 	if (!moder)
 		error(9, NULL, NULL);
 	printf("MODER CREATED\n\n");
-	pthread_cond_init(&moder->cond, NULL);
-	pthread_mutex_init(&moder->lock, NULL);
+	pthread_cond_init(&moder->simulation.cond, NULL);
+	pthread_mutex_init(&moder->simulation.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
 	moder->nb_coders = c.number_of_coders;
-	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
+	moder->nbcr = c.number_of_compiles_required;
 	moder->scheduler = c.scheduler;
 	moder->current_compiles = 0;
 	moder->tables = init_tables(c, moder);
 	moder->infos = moder->tables->infos;
 	printf("TABLES CREATED\n\n");
 	moder->simulation.continue_sim = 1;
-	pthread_cond_broadcast(&moder->cond);
+	pthread_cond_broadcast(&moder->simulation.cond);
 	return (moder);
 }
 
@@ -65,22 +65,22 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	i = 0;
 	while (i < c.number_of_coders)
 	{
-		create_table(&tables[i], tables, c, i);
-		tables[i].infos = infos;
-		tables[i].sim = &moder->simulation;
+		create_table(&tables[i], tables, c, i, infos, &moder->simulation);
 		i++;
 	}
 	return tables;
 }
 
 void	create_table(t_table	*table, t_table	*tables,
-	t_config	c, size_t	i)
+	t_config	c, size_t	i, t_infos *infos, t_simulation *sim)
 {
 	table->table_id = i + 1;
 	table->next = &tables[(i + 1) % c.number_of_coders];
 	table->prev = &tables[(i + c.number_of_coders - 1)
 		% c.number_of_coders];
 	table->right_dongle = &tables[(i + 1) % c.number_of_coders].dongle;
+	table->infos = infos;
+	table->sim = sim;
 	create_dongle(&table->dongle, c);
 	create_coder(&table->coder, c, table);
 }
