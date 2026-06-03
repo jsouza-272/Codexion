@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 11:20:46 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 11:30:03 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void *moder_routine(void *arg)
 		pthread_mutex_unlock(&moder->infos->lock);
 		pthread_cond_broadcast(&moder->infos->cond);
 		printf("ACORDA!!!!\n");
-		usleep(moder->tables->coder.time_to_compile * 1000);
+		usleep(moder->tables->coder.time_to_compile * 4000);
 		moder->current_compiles++;
 	}
 	moder->simulation.continue_sim = 0;
@@ -53,6 +53,7 @@ void join_all_threads(t_moder *moder)
 
 	table = moder->tables;
 	id = table->table_id;
+	pthread_cond_broadcast(&moder->infos->cond);
 	pthread_join(table->coder.thread, NULL);
 	table = table->next;
 	while (table->table_id != id)

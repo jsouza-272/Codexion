@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 11:14:44 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/03 11:40:49 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ void *coder_routine(void *arg)
 	t_table *table;
 
 	table = (t_table*)arg;
+	printf("\nsou C%d\n\n", table->table_id);
 	while (table->sim->continue_sim)
 	{
 		pthread_mutex_lock(&table->infos->lock);
 		while (!id_in_ids(table->table_id, table->infos->ids,
-			table->infos->list_size))
+			table->infos->list_size) && table->sim->continue_sim)
 			pthread_cond_wait(&table->infos->cond, &table->infos->lock);
 		printf("%zu (C%d)fui chamado\n", pthread_self(), table->table_id);
 		pthread_mutex_unlock(&table->infos->lock);
