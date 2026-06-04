@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 14:06:37 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/04 13:13:53 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_moder *init(t_config c)
 	pthread_mutex_init(&moder->simulation.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
 	moder->nb_coders = c.number_of_coders;
-	moder->nbcr = c.number_of_compiles_required;
+	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
 	moder->scheduler = c.scheduler;
 	moder->current_compiles = 0;
 	moder->tables = init_tables(c, moder);
@@ -62,6 +62,8 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	infos->list_size = c.number_of_coders / 2;
 	pthread_cond_init(&infos->cond, NULL);
 	pthread_mutex_init(&infos->lock, NULL);
+	pthread_cond_init(&infos->moder_cond, NULL);
+	pthread_mutex_init(&infos->moder_lock, NULL);
 	i = 0;
 	while (i < c.number_of_coders)
 	{

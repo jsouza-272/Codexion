@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 12:21:30 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/04 13:13:29 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ typedef struct s_infos
 {
 	pthread_cond_t	cond;
 	pthread_mutex_t	lock;
+	pthread_mutex_t moder_lock;
+	pthread_cond_t	moder_cond;
 	int				*ids;
 	size_t			list_size;
+	size_t			counter;
 	int				last_id;
 } t_infos;
 

@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/03 13:59:31 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/04 13:55:47 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,29 @@ void *coder_routine(void *arg)
 	while (!table->sim->continue_sim)
 		pthread_cond_wait(&table->sim->cond, &table->sim->lock);
 	pthread_mutex_unlock(&table->sim->lock);
-	printf("\nsou C%d\n\n", table->table_id);
 	while (table->sim->continue_sim)
 	{
 		pthread_mutex_lock(&table->infos->lock);
 		while (!id_in_ids(table->table_id, table->infos->ids,
 			table->infos->list_size) && table->sim->continue_sim)
 			pthread_cond_wait(&table->infos->cond, &table->infos->lock);
-		printf("%zu (C%d)fui chamado\n", pthread_self(), table->table_id);
 		pthread_mutex_unlock(&table->infos->lock);
 		compile(&table->dongle, table->right_dongle,
 			&table->coder, table->table_id);
+		pthread_mutex_lock(&table->infos->moder_lock);
+		table->infos->counter += 1;
+		pthread_mutex_unlock(&table->infos->moder_lock);
+		pthread_cond_broadcast(&table->infos->moder_cond);
 		debug(&table->coder, table->table_id);
 		refactor(&table->coder, table->table_id);
 	}
-	printf("C%d END\n", table->table_id);
 	return (NULL);
 }
 void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)
 {
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
-	printf("[%zu] C%d COMPILE\n\n", get_time(), id);
+	printf("\n[%zu] C%d COMPILE\n", get_time(), id);
 	fflush(stdout);
 	usleep(coder->time_to_compile * 1000);
 	coder->last_compile = get_time();
@@ -60,7 +61,7 @@ void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)
 
 void debug(t_coder *coder, int id)
 {
-	printf("[%zu] C%d DEBUG\n\n", get_time(), id);
+	printf("[%zu] C%d DEBUG\n", get_time(), id);
 	fflush(stdout);
 	usleep(coder->time_to_debug * 1000);
 }

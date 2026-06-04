@@ -36,6 +36,7 @@
 		# last use
 		# dongle_cooldown: int > 0 (ms)
 		```
+	-	implementar o cooldown
 
-# Coder
-## Rotina do thread
+# Moder
+-	implementar o burnout dos coders
