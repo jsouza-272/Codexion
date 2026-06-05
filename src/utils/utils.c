@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 11:41:06 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 11:41:20 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/05 14:42:17 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	ft_bzero(void *s, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*p;
+
+	i = 0;
+	p = s;
+	while (i < n)
+	{
+		p[i] = c;
+		i++;
+	}
+	return (p);
+}
+
+void	ft_bzero(void *s, size_t n)
 {
 	size_t			i;
 	unsigned char	*p;

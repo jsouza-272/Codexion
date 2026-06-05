@@ -9,7 +9,7 @@ norm:
 
 run: all
 	clear
-	./codexion 2 1000 100 100 100 5 100 fifo
+	./codexion 5 1000 100 100 100 1 100 edf
 	@rm codexion
 
 debug: all

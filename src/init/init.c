@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/04 13:13:53 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/05 11:34:51 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,7 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	tables = ft_calloc(c.number_of_coders, sizeof(t_table));
 	if (!tables)
 		error(10, NULL, NULL);
-	infos = ft_calloc(1, sizeof(t_infos));
-	if (!infos)
-		error(11, tables, NULL);
-	infos->ids = ft_calloc(c.number_of_coders / 2, sizeof(int));
-	if (!infos->ids)
-		error(12, tables, infos);
-	infos->list_size = c.number_of_coders / 2;
-	pthread_cond_init(&infos->cond, NULL);
-	pthread_mutex_init(&infos->lock, NULL);
-	pthread_cond_init(&infos->moder_cond, NULL);
-	pthread_mutex_init(&infos->moder_lock, NULL);
+	infos = init_infos(c);
 	i = 0;
 	while (i < c.number_of_coders)
 	{

@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/04 13:28:16 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/05 14:43:00 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void *moder_routine(void *arg)
 	moder = (t_moder*)arg;
 	pthread_mutex_lock(&moder->simulation.lock);
 	while (!moder->simulation.continue_sim)
-		pthread_cond_wait(&moder->simulation.cond, &moder->simulation.lock);
+	pthread_cond_wait(&moder->simulation.cond, &moder->simulation.lock);
 	pthread_mutex_unlock(&moder->simulation.lock);
 	while(moder->nbcr > moder->current_compiles)
 	{
+		printf("\n%zu\n", moder->current_compiles);
 		pthread_mutex_lock(&moder->infos->lock);
+		//ft_bzero(moder->infos->ids, moder->infos->list_size * sizeof(int));
+		ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
 		if (moder->scheduler == FIFO)
 			fifo(moder);
 		else

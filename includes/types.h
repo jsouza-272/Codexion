@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/04 13:13:29 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/05 14:14:27 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_infos
 	size_t			list_size;
 	size_t			counter;
 	int				last_id;
+	int				*ids_list;
+	size_t			ids_list_size;
 } t_infos;
 
 typedef struct s_simulation
@@ -63,7 +65,7 @@ typedef	struct	s_dongle
 typedef	struct	s_coder
 {
 	pthread_t	thread;
-	int			last_compile;
+	size_t			last_compile;
 	int			time_to_burnout;
 	int			time_to_compile;
 	int			time_to_debug;
@@ -87,12 +89,12 @@ struct	s_table
 typedef struct s_moder
 {
 	pthread_t	thread;
-	t_table *tables;
-	t_infos *infos;
+	t_table		*tables;
+	t_infos		*infos;
 	t_simulation simulation;
-	size_t current_compiles;
-	size_t nbcr;
-	int nb_coders;
+	size_t		current_compiles;
+	size_t		nbcr;
+	int			nb_coders;
 	t_scheduler	scheduler;
 } t_moder;
 
