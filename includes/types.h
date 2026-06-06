@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/05 14:14:27 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/06 11:59:19 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_infos
 {
 	pthread_cond_t	cond;
 	pthread_mutex_t	lock;
-	pthread_mutex_t moder_lock;
+	pthread_mutex_t	moder_lock;
 	pthread_cond_t	moder_cond;
 	int				*ids;
 	size_t			list_size;
@@ -33,14 +33,14 @@ typedef struct s_infos
 	int				last_id;
 	int				*ids_list;
 	size_t			ids_list_size;
-} t_infos;
+}	t_infos;
 
 typedef struct s_simulation
 {
-	int continue_sim;
-	pthread_cond_t cond;
-	pthread_mutex_t lock;
-} t_simulation;
+	int				continue_sim;
+	pthread_cond_t	cond;
+	pthread_mutex_t	lock;
+}	t_simulation;
 
 typedef struct s_config
 {
@@ -56,21 +56,21 @@ typedef struct s_config
 
 typedef	struct	s_dongle
 {
-	int	last_use;
-	int	dongle_cooldown;
-	pthread_mutex_t lock;
+	int				last_use;
+	int				dongle_cooldown;
+	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef	struct	s_coder
 {
 	pthread_t	thread;
-	size_t			last_compile;
+	size_t		last_compile;
 	int			time_to_burnout;
 	int			time_to_compile;
 	int			time_to_debug;
 	int			time_to_refactor;
-} t_coder;
+}	t_coder;
 
 typedef	struct	s_table	t_table;
 
@@ -83,19 +83,19 @@ struct	s_table
 	t_dongle		*right_dongle;
 	t_infos			*infos;
 	t_simulation	*sim;
-	int 			table_id;
+	int				table_id;
 };
 
 typedef struct s_moder
 {
-	pthread_t	thread;
-	t_table		*tables;
-	t_infos		*infos;
-	t_simulation simulation;
-	size_t		current_compiles;
-	size_t		nbcr;
-	int			nb_coders;
-	t_scheduler	scheduler;
-} t_moder;
+	pthread_t		thread;
+	t_table			*tables;
+	t_infos			*infos;
+	t_simulation	simulation;
+	size_t			current_compiles;
+	size_t			nbcr;
+	int				nb_coders;
+	t_scheduler		scheduler;
+}	t_moder;
 
 #endif

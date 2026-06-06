@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/02 10:36:44 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/06 12:03:05 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	parser_error(int error_id)
 {
 	if (error_id == 0)
-		fprintf(stderr, "Usage: ./codexion <number_of_coders> "
-				"<time_to_burnout> <time_to_compile> "
-				"<time_to_debug> <time_to_refactor> "
-				"<number_of_compiles_required> <dongle_cooldown>"
-				" <scheduler>\n");
+		fprintf(stderr, "Usage: ./codexion <number_of_coders> %s%s%s%s",
+			"<time_to_burnout> <time_to_compile> ",
+			"<time_to_debug> <time_to_refactor> ",
+			"<number_of_compiles_required> <dongle_cooldown>",
+			" <scheduler>\n");
 	else if (error_id == 1)
 		fprintf(stderr, "Error: number_of_coders must be at least 1\n");
 	else if (error_id == 2)
@@ -31,7 +31,8 @@ void	parser_error(int error_id)
 	else if (error_id == 5)
 		fprintf(stderr, "Error: time_to_refactor must be at least 1\n");
 	else if (error_id == 6)
-		fprintf(stderr, "Error: number_of_compiles_required must be at least 1\n");
+		fprintf(stderr, "Error: number_of_compiles_required must be \
+			 at least 1\n");
 	else if (error_id == 7)
 		fprintf(stderr, "Error: dongle_cooldown must be at least 1\n");
 	else if (error_id == 8)

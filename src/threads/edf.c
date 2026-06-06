@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 13:58:52 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/05 14:37:50 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/06 11:01:00 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int select_edf_candidate(t_table *table, t_infos *infos, int nb_coders,
 		j++;
 		table = table->next;
 		if (id_in_ids(table->table_id, infos->ids, infos->list_size) ||
-			id_in_ids(table->table_id + 1, infos->ids, infos->list_size) ||
-			id_in_ids(table->table_id - 1, infos->ids, infos->list_size))
+			id_in_ids(table->next->table_id, infos->ids, infos->list_size) ||
+			id_in_ids(table->prev->table_id, infos->ids, infos->list_size))
 			continue;
 		if (table->coder.last_compile < min)
 		{
