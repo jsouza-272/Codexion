@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/06 11:59:19 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 14:05:47 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TYPES_H
 
 # include <pthread.h>
+
+typedef	struct	s_moder	t_moder;
 
 typedef enum e_scheduler
 {
@@ -40,6 +42,7 @@ typedef struct s_simulation
 	int				continue_sim;
 	pthread_cond_t	cond;
 	pthread_mutex_t	lock;
+	t_moder			*moder;
 }	t_simulation;
 
 typedef struct s_config
@@ -56,8 +59,8 @@ typedef struct s_config
 
 typedef	struct	s_dongle
 {
-	int				last_use;
-	int				dongle_cooldown;
+	size_t			last_use;
+	size_t			dongle_cooldown;
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
 }	t_dongle;
@@ -66,7 +69,8 @@ typedef	struct	s_coder
 {
 	pthread_t	thread;
 	size_t		last_compile;
-	int			time_to_burnout;
+	size_t		time_to_burnout;
+	size_t		start;
 	int			time_to_compile;
 	int			time_to_debug;
 	int			time_to_refactor;
@@ -89,6 +93,7 @@ struct	s_table
 typedef struct s_moder
 {
 	pthread_t		thread;
+	pthread_t		thread2;
 	t_table			*tables;
 	t_infos			*infos;
 	t_simulation	simulation;

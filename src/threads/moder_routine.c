@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/06 11:51:32 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 14:41:33 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void *moder_routine(void *arg)
 	while (!moder->simulation.continue_sim)
 		pthread_cond_wait(&moder->simulation.cond, &moder->simulation.lock);
 	pthread_mutex_unlock(&moder->simulation.lock);
-	while(moder->nbcr >= moder->current_compiles)
+	printf("\n%zu\n",moder->nbcr);
+	while(moder->nbcr > moder->current_compiles)
 	{
+		printf("\n%zu\n",moder->current_compiles);
 		moder_routine_aux(moder);
 		pthread_cond_broadcast(&moder->infos->cond);
 		pthread_mutex_lock(&moder->infos->moder_lock);
@@ -38,6 +40,7 @@ void *moder_routine(void *arg)
 	}
 	moder->simulation.continue_sim = 0;
 	printf("COMPILE Acabou o loop\n\n");
+	ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
 	join_all_threads(moder);
 	return (NULL);
 }

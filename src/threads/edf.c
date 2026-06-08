@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 13:58:52 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/06 11:01:00 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 09:42:34 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int select_edf_candidate(t_table *table, t_infos *infos, int nb_coders,
 	int	j;
 
 	j = 0;
-	(void)infos;
 	while (j < nb_coders + 1)
 	{
 		j++;

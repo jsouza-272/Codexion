@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/05 11:34:51 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 14:25:18 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_moder *init(t_config c)
 	pthread_cond_init(&moder->simulation.cond, NULL);
 	pthread_mutex_init(&moder->simulation.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
+	pthread_create(&moder->thread2, NULL, &check_burnout, moder);
 	moder->nb_coders = c.number_of_coders;
 	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
 	moder->scheduler = c.scheduler;
@@ -40,6 +41,7 @@ t_moder *init(t_config c)
 	moder->infos = moder->tables->infos;
 	printf("TABLES CREATED\n\n");
 	moder->simulation.continue_sim = 1;
+	moder->simulation.moder = moder;
 	pthread_cond_broadcast(&moder->simulation.cond);
 	return (moder);
 }
