@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 14:41:33 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 22:55:17 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void *moder_routine(void *arg)
 	printf("\n%zu\n",moder->nbcr);
 	while(moder->nbcr > moder->current_compiles)
 	{
-		printf("\n%zu\n",moder->current_compiles);
+		printf("\nCOMPILE nbr:%zu\n",moder->current_compiles);
 		moder_routine_aux(moder);
 		pthread_cond_broadcast(&moder->infos->cond);
 		pthread_mutex_lock(&moder->infos->moder_lock);

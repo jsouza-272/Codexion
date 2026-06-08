@@ -18,5 +18,5 @@ run: all
 debug: all
 	clear
 #	./codexion <number_of_coders> <time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor> <number_of_compiles_required> <dongle_cooldown> <scheduler>
-	./codexion 			5				1000 				100 			100 			100 			 		1 						400 		 $(SCHEDULER) | grep COMPILE
+	./codexion 			20				100000 				100 			100 			100 			 		1 						400 		 $(SCHEDULER) | grep COMPILE
 	@rm codexion

@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 14:34:49 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/08 23:03:09 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)
 {
 	while (get_time() - d1->last_use < d1->dongle_cooldown ||
 		   get_time() - d2->last_use < d2->dongle_cooldown)
-	{
 		usleep(1);
-	}
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
 	printf("[%zu] C%d  has taken a dongle\n", get_time() - coder->start, id);
