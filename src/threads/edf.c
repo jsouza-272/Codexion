@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 13:58:52 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 09:42:34 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 10:38:46 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int select_edf_candidate(t_table *table, t_infos *infos, int nb_coders,
 	int	j;
 
 	j = 0;
-	while (j < nb_coders + 1)
+	while (j < nb_coders)
 	{
 		j++;
 		table = table->next;
@@ -42,16 +42,18 @@ int select_edf_candidate(t_table *table, t_infos *infos, int nb_coders,
 			id_in_ids(table->next->table_id, infos->ids, infos->list_size) ||
 			id_in_ids(table->prev->table_id, infos->ids, infos->list_size))
 			continue;
-		if (table->coder.last_compile < min)
+		pthread_mutex_lock(&table->coder.lock);
+		if (table->coder.last_compile == min && id > table->table_id)
 		{
 			min = table->coder.last_compile;
 			id = table->table_id;
 		}
-		else if (table->coder.last_compile == min && id > table->table_id)
+		else if (table->coder.last_compile < min)
 		{
 			min = table->coder.last_compile;
 			id = table->table_id;
 		}
+		pthread_mutex_unlock(&table->coder.lock);
 	}
 	return (id);
 }

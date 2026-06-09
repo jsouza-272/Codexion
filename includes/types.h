@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:07:56 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 14:05:47 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 10:16:57 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ typedef	struct	s_dongle
 
 typedef	struct	s_coder
 {
-	pthread_t	thread;
-	size_t		last_compile;
-	size_t		time_to_burnout;
-	size_t		start;
-	int			time_to_compile;
-	int			time_to_debug;
-	int			time_to_refactor;
+	pthread_t		thread;
+	pthread_mutex_t lock;
+	size_t			last_compile;
+	size_t			time_to_burnout;
+	size_t			start;
+	int				time_to_compile;
+	int				time_to_debug;
+	int				time_to_refactor;
 }	t_coder;
 
 typedef	struct	s_table	t_table;

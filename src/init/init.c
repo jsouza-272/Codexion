@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 14:25:18 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 10:17:37 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	create_coder(t_coder	*coder, t_config	c, t_table	*table)
 	coder->time_to_compile = c.time_to_compile;
 	coder->time_to_debug = c.time_to_debug;
 	coder->time_to_refactor = c.time_to_refactor;
+	pthread_mutex_init(&coder->lock, NULL);
 	pthread_create(&coder->thread, NULL, &coder_routine, table);
 }
