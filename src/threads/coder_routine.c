@@ -6,17 +6,17 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 10:28:38 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 14:30:26 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id);
+void compile(t_dongle *d1, t_dongle *d2, t_table *table, int id);
 
-void debug(t_coder *coder, int id);
+void debug(t_table *table, int id, size_t start);
 
-void refactor(t_coder *coder, int id);
+void refactor(t_table *table, int id, size_t start);
 
 void coder_routine_aux(t_table *table);
 
@@ -29,9 +29,6 @@ void *coder_routine(void *arg)
 	while (!table->sim->continue_sim)
 		pthread_cond_wait(&table->sim->cond, &table->sim->lock);
 	pthread_mutex_unlock(&table->sim->lock);
-	if (!table->coder.last_compile)
-		table->coder.last_compile = get_time();
-	table->coder.start = get_time();
 	while (table->sim->continue_sim)
 	{
 		pthread_mutex_lock(&table->infos->lock);
@@ -48,46 +45,56 @@ void *coder_routine(void *arg)
 
 void coder_routine_aux(t_table *table)
 {
+	pthread_mutex_lock(&table->sim->lock);
+	if (!table->sim->continue_sim)
+		return;
+	pthread_mutex_unlock(&table->sim->lock);
 	compile(&table->dongle, table->right_dongle,
-			&table->coder, table->table_id);
+			table, table->table_id);
 	pthread_mutex_lock(&table->infos->moder_lock);
 	table->infos->counter += 1;
 	pthread_mutex_unlock(&table->infos->moder_lock);
 	pthread_cond_broadcast(&table->infos->moder_cond);
-	debug(&table->coder, table->table_id);
-	refactor(&table->coder, table->table_id);
+	debug(table, table->table_id, table->sim->start);
+	refactor(table, table->table_id, table->sim->start);
 }
 
-void compile(t_dongle *d1, t_dongle *d2, t_coder *coder, int id)
+void compile(t_dongle *d1, t_dongle *d2, t_table *table, int id)
 {
+	if (!table->sim->continue_sim)
+		return;
 	while (get_time() - d1->last_use < d1->dongle_cooldown ||
 		   get_time() - d2->last_use < d2->dongle_cooldown)
 		usleep(1);
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
-	printf("[%zu] C%d  has taken a dongle\n", get_time() - coder->start, id);
-	printf("[%zu] C%d  has taken a dongle\n", get_time() - coder->start, id);
-	printf("[%zu] C%d COMPILE\n", get_time() - coder->start, id);
-	usleep(coder->time_to_compile * 1000);
-	pthread_mutex_lock(&coder->lock);
-	coder->last_compile = get_time();
-	pthread_mutex_unlock(&coder->lock);
+	printf("[%zu] C%d  has taken a dongle\n",
+		get_time() - table->sim->start, id);
+	printf("[%zu] C%d  has taken a dongle\n",
+		get_time() - table->sim->start, id);
+	printf("[%zu] C%d COMPILE\n", get_time() - table->sim->start, id);
+	pthread_mutex_lock(&table->coder.lock);
+	table->coder.last_compile = get_time();
+	pthread_mutex_unlock(&table->coder.lock);
+	usleep(table->coder.time_to_compile * 1000);
 	d1->last_use = get_time();
 	d2->last_use = get_time();
 	pthread_mutex_unlock(&d1->lock);
 	pthread_mutex_unlock(&d2->lock);
 }
 
-void debug(t_coder *coder, int id)
+void debug(t_table *table, int id, size_t start)
 {
-	printf("[%zu] C%d DEBUG\n", get_time() - coder->start, id);
-	fflush(stdout);
-	usleep(coder->time_to_debug * 1000);
+	if (!table->sim->continue_sim)
+		return;
+	printf("[%zu] C%d DEBUG\n", get_time() - start, id);
+	usleep(table->coder.time_to_compile * 1000);
 }
 
-void refactor(t_coder *coder, int id)
+void refactor(t_table *table, int id, size_t start)
 {
-	printf("[%zu] C%d REFACTOR\n", get_time() - coder->start, id);
-	fflush(stdout);
-	usleep(coder->time_to_refactor * 1000);
+	if (!table->sim->continue_sim)
+		return;
+	printf("[%zu] C%d REFACTOR\n", get_time() - start, id);
+	usleep(table->coder.time_to_compile * 1000);
 }

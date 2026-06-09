@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 11:28:36 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/05 13:24:57 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 11:22:13 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ t_infos *init_infos(t_config c)
 	if (!infos->ids)
 		error(12, NULL, infos);
 	infos->list_size = c.number_of_coders / 2;
-	infos->ids_list = ft_calloc(c.number_of_coders * c.number_of_coders,
-		sizeof(int));
-	if (!infos->ids_list)
-		error(13, NULL, NULL);
-	infos->ids_list_size = c.number_of_coders * c.number_of_coders;
 	pthread_cond_init(&infos->cond, NULL);
 	pthread_mutex_init(&infos->lock, NULL);
 	pthread_cond_init(&infos->moder_cond, NULL);

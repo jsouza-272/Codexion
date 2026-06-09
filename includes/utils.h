@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:12:18 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 14:25:13 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 12:52:59 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void		*ft_calloc(size_t nmemb, size_t size);
 t_infos		*init_infos(t_config c);
 void		*ft_memset(void *s, int c, size_t n);
 void		*check_burnout(void	*arg);
+void		free_all(t_moder *moder);
+void 		join_all_threads(t_moder *moder);;
 
 #endif

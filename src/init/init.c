@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 10:17:37 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 14:38:48 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ t_moder *init(t_config c)
 	moder = ft_calloc(1, sizeof(t_moder));
 	if (!moder)
 		error(9, NULL, NULL);
-	printf("MODER CREATED\n\n");
-	pthread_cond_init(&moder->simulation.cond, NULL);
-	pthread_mutex_init(&moder->simulation.lock, NULL);
+	pthread_cond_init(&moder->sim.cond, NULL);
+	pthread_mutex_init(&moder->sim.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
 	pthread_create(&moder->thread2, NULL, &check_burnout, moder);
 	moder->nb_coders = c.number_of_coders;
@@ -39,10 +38,9 @@ t_moder *init(t_config c)
 	moder->current_compiles = 0;
 	moder->tables = init_tables(c, moder);
 	moder->infos = moder->tables->infos;
-	printf("TABLES CREATED\n\n");
-	moder->simulation.continue_sim = 1;
-	moder->simulation.moder = moder;
-	pthread_cond_broadcast(&moder->simulation.cond);
+	moder->sim.continue_sim = 1;
+	moder->sim.moder = moder;
+	pthread_cond_broadcast(&moder->sim.cond);
 	return (moder);
 }
 
@@ -59,10 +57,10 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	i = 0;
 	while (i < c.number_of_coders)
 	{
-		create_table(&tables[i], tables, c, i, infos, &moder->simulation);
+		create_table(&tables[i], tables, c, i, infos, &moder->sim);
 		i++;
 	}
-	return tables;
+	return &tables[0];
 }
 
 void	create_table(t_table	*table, t_table	*tables,
