@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 14:38:48 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 15:23:33 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_table	*init_tables(t_config c, t_moder *moder)
 		create_table(&tables[i], tables, c, i, infos, &moder->sim);
 		i++;
 	}
-	return &tables[0];
+	return tables;
 }
 
 void	create_table(t_table	*table, t_table	*tables,

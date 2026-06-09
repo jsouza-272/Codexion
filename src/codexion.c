@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:27:50 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 14:38:53 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/09 15:55:09 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	main(int argc, char **argv)
 
 	config = parser(argc, argv);
 	moder = init(config);
-	pthread_join(moder->thread, NULL);
+	pthread_join(moder->thread2, NULL);
+	free_all(moder);
 }
