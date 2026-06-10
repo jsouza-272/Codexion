@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:06:36 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 14:08:17 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:15:02 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*check_burnout(void *arg)
 	moder = (t_moder *)arg;
 	wait_start(moder);
 	table = moder->tables;
-	while (moder->sim.continue_sim)
+	while (moder->sim.continue_sim == 1)
 	{
 		pthread_mutex_lock(&table->coder.lock);
 		if ((get_time()

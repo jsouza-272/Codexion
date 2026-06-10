@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:25:22 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:20 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:14:00 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	aux_parser(char *value, int error_id)
 
 	nb = atoi(value);
 	if (nb <= 0)
-		error(error_id, NULL, NULL);
+		error(error_id, NULL, NULL, NULL);
 	return (nb);
 }
 
@@ -28,7 +28,7 @@ t_config	parser(int argc, char **argv)
 	t_config	config;
 
 	if (argc != 9)
-		error(0, NULL, NULL);
+		error(0, NULL, NULL, NULL);
 	config.number_of_coders = aux_parser(argv[1], 1);
 	config.time_to_burnout = aux_parser(argv[2], 2);
 	config.time_to_compile = aux_parser(argv[3], 3);
@@ -41,6 +41,6 @@ t_config	parser(int argc, char **argv)
 	else if (strcmp(argv[8], "edf") == 0)
 		config.scheduler = EDF;
 	else
-		error(8, NULL, NULL);
+		error(8, NULL, NULL, NULL);
 	return (config);
 }

@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:22 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:18:24 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_moder	*init(t_config c)
 
 	moder = ft_calloc(1, sizeof(t_moder));
 	if (!moder)
-		error(9, NULL, NULL);
+		error(9, NULL, NULL, NULL);
 	pthread_cond_init(&moder->sim.cond, NULL);
 	pthread_mutex_init(&moder->sim.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
@@ -52,14 +52,14 @@ t_table	*init_tables(t_config c, t_moder *moder)
 
 	tables = ft_calloc(c.number_of_coders, sizeof(t_table));
 	if (!tables)
-		error(10, NULL, NULL);
-	infos = init_infos(c);
+		error(10, NULL, NULL, moder);
+	infos = init_infos(c, tables, moder);
 	i = 0;
 	while (i < c.number_of_coders)
 	{
-		create_table(&tables[i], tables, c, i);
 		tables[i].sim = &moder->sim;
 		tables[i].infos = infos;
+		create_table(&tables[i], tables, c, i);
 		i++;
 	}
 	return (tables);

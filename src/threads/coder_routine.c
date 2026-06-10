@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 14:09:17 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:15:08 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*coder_routine(void *arg)
 	while (!table->sim->continue_sim)
 		pthread_cond_wait(&table->sim->cond, &table->sim->lock);
 	pthread_mutex_unlock(&table->sim->lock);
-	while (table->sim->continue_sim)
+	while (table->sim->continue_sim == 1)
 	{
 		pthread_mutex_lock(&table->infos->lock);
 		while (!id_in_ids(table->table_id, table->infos->ids,

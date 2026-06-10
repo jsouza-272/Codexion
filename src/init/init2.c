@@ -6,23 +6,23 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 11:28:36 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:25 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:20:15 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 #include "utils.h"
 
-t_infos	*init_infos(t_config c)
+t_infos	*init_infos(t_config c, t_table *table, t_moder *moder)
 {
 	t_infos	*infos;
 
 	infos = ft_calloc(1, sizeof(t_infos));
 	if (!infos)
-		error(11, NULL, NULL);
+		error(11, table, NULL, moder);
 	infos->ids = ft_calloc(c.number_of_coders / 2, sizeof(int));
 	if (!infos->ids)
-		error(12, NULL, infos);
+		error(12, table, infos, moder);
 	infos->list_size = c.number_of_coders / 2;
 	pthread_cond_init(&infos->cond, NULL);
 	pthread_mutex_init(&infos->lock, NULL);

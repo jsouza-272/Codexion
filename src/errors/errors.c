@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:27 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 15:41:08 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,38 @@ void	parser_error(int error_id)
 	exit(1);
 }
 
-void	error(int error_id, t_table *table, t_infos *infos)
+void	init_errors(int error_id, t_table *table, t_infos *infos, t_moder *moder)
 {
-	(void)table;
-	(void)infos;
+	if (error_id == 12)
+	{
+		free(infos);
+		error_id = 11;
+	}
+	if (error_id == 11)
+	{
+		free(table);
+		error_id = 10;
+	}
+	if (error_id == 10)
+	{
+		thread_mutex_lock(&moder->sim.lock);
+		moder->sim.continue_sim = 2;
+		pthread_cond_broadcast(&moder->sim.cond);
+		pthread_mutex_unlock(&moder->sim.lock);
+		pthread_cond_broadcast(&moder->sim.cond);
+		pthread_join(moder->thread2, NULL);
+		pthread_mutex_destroy(&moder->sim.lock);
+		pthread_cond_destroy(&moder->sim.cond);
+		free(moder);
+	}
+	fprintf(stderr, "Init Error\n");
+}
+
+void	error(int error_id, t_table *table, t_infos *infos, t_moder *moder)
+{
 	if (0 <= error_id && error_id <= 8)
 		parser_error(error_id);
+	else if (9 <= error_id && error_id <= 12)
+		init_errors(error_id, table, infos, moder);
 	exit(1);
 }
