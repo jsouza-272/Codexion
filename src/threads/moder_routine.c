@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 15:50:11 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 10:42:35 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void *moder_routine(void *arg)
 	t_moder *moder;
 
 	moder = (t_moder*)arg;
-	pthread_mutex_lock(&moder->sim.lock);
-	while (!moder->sim.continue_sim)
-		pthread_cond_wait(&moder->sim.cond, &moder->sim.lock);
-	pthread_mutex_unlock(&moder->sim.lock);
+	wait_start(moder);
 	moder->sim.start = get_time();
 	while(moder->nbcr > moder->current_compiles && moder->sim.continue_sim)
 	{
@@ -40,8 +37,6 @@ void *moder_routine(void *arg)
 	moder->sim.continue_sim = 0;
 	ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
 	join_all_threads(moder);
-	//free_all(moder);
-	printf("aqui no final 1\n");
 	return (NULL);
 }
 

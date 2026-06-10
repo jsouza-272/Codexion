@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 14:30:26 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 11:08:07 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ void coder_routine_aux(t_table *table)
 
 void compile(t_dongle *d1, t_dongle *d2, t_table *table, int id)
 {
-	if (!table->sim->continue_sim)
-		return;
 	while (get_time() - d1->last_use < d1->dongle_cooldown ||
-		   get_time() - d2->last_use < d2->dongle_cooldown)
+	get_time() - d2->last_use < d2->dongle_cooldown)
+	{
+		if (!table->sim->continue_sim)
+			return;
 		usleep(1);
+	}
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
 	printf("[%zu] C%d  has taken a dongle\n",
