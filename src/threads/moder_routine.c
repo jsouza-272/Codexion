@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 10:42:35 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:40 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	join_all_threads(t_moder *moder);
 

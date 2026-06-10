@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 11:50:05 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:22 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	create_table(t_table *table, t_table *tables, t_config c, size_t i);
 

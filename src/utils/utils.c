@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 11:41:06 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/05 14:42:17 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:49 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {

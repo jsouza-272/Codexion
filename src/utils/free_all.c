@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 10:53:53 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 11:45:01 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:43 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	free_table(t_table *table);
 

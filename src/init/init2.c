@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 11:28:36 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 11:50:20 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:25 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 t_infos	*init_infos(t_config c)
 {

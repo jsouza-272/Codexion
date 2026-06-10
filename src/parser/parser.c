@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:25:22 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/06 12:03:43 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:20 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 int	aux_parser(char *value, int error_id)
 {

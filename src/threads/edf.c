@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 13:58:52 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 11:59:26 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:17 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 int		select_edf_candidate(t_table *table, t_infos *infos, int nb_coders,
 			size_t min);

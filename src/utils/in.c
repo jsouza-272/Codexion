@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:14:12 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/06 12:04:24 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:45 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 int	id_in_ids(int id, int *ids, size_t limit)
 {

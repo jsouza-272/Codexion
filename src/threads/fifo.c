@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:13:05 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/08 23:00:09 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:38 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	fifo(t_moder *moder)
 {

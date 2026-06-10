@@ -1,29 +1,30 @@
-SCHEDULER= fifo
+FLAGS= -Wall -Wextra -Werror -pthread -I ./includes
+CC= cc
 
-all:
-	cc -Wall -Wextra -Werror -pthread -I ./includes src/*.c src/*/*.c -o codexion
+NAME= codexion
+
+SRC= src/errors/errors.c src/init/init.c src/init/init2.c src/parser/parser.c \
+	src/threads/check_burnout.c src/threads/coder_routine.c src/threads/edf.c \
+	src/threads/fifo.c src/threads/moder_routine.c src/utils/free_all.c \
+	src/utils/in.c src/utils/time.c src/utils/utils.c src/codexion.c
+
+OBJ= $(addprefix obj/, $(SRC:.c=.o))
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	@rm codexion
+	@rm -f codexion
 
-norm:
-	clear
-	norminette
+fclean: clean
+	@rm -rf obj
 
-run: all
-	clear
-#	./codexion <number_of_coders> <time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor> <number_of_compiles_required> <dongle_cooldown> <scheduler>
-	./codexion 			2				1000				100				100				100						1						400			 $(SCHEDULER)
-	@rm codexion
+re: fclean all
 
-debug: all
-	clear
-#	./codexion <number_of_coders> <time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor> <number_of_compiles_required> <dongle_cooldown> <scheduler>
-	./codexion 			20				100000 				100 			100 			100 			 		1 						400 		 $(SCHEDULER) | grep COMPILE
-	@rm codexion
-
-val: all
-	clear
-#	./codexion <number_of_coders> <time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor> <number_of_compiles_required> <dongle_cooldown> <scheduler>
-	valgrind --leak-check=full --show-leak-kinds=all ./codexion 				2				1000				100				100				100						1						100			 $(SCHEDULER)
-	@rm codexion
+.PHONY: all bonus clean fclean re

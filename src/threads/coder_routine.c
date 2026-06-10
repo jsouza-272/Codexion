@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 11:53:03 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 12:18:13 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include "utils.h"
 
 void	compile(t_dongle *d1, t_dongle *d2, t_table *table, int id);
 
@@ -73,7 +74,7 @@ void	compile(t_dongle *d1, t_dongle *d2, t_table *table, int id)
 		id);
 	printf("[%zu] C%d  has taken a dongle\n", get_time() - table->sim->start,
 		id);
-	printf("[%zu] C%d COMPILE\n", get_time() - table->sim->start, id);
+	printf("[%zu] C%d is compiling\n", get_time() - table->sim->start, id);
 	pthread_mutex_lock(&table->coder.lock);
 	table->coder.last_compile = get_time();
 	pthread_mutex_unlock(&table->coder.lock);
@@ -88,7 +89,7 @@ void	debug(t_table *table, int id, size_t start)
 {
 	if (!table->sim->continue_sim)
 		return ;
-	printf("[%zu] C%d DEBUG\n", get_time() - start, id);
+	printf("[%zu] C%d  is debugging\n", get_time() - start, id);
 	usleep(table->coder.time_to_compile * 1000);
 }
 
@@ -96,6 +97,6 @@ void	refactor(t_table *table, int id, size_t start)
 {
 	if (!table->sim->continue_sim)
 		return ;
-	printf("[%zu] C%d REFACTOR\n", get_time() - start, id);
+	printf("[%zu] C%d is refactoring\n", get_time() - start, id);
 	usleep(table->coder.time_to_compile * 1000);
 }
