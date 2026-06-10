@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:04:11 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:13 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 14:09:17 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	compile(t_dongle *d1, t_dongle *d2, t_table *table, int id)
 	}
 	pthread_mutex_lock(&d1->lock);
 	pthread_mutex_lock(&d2->lock);
-	printf("[%zu] C%d  has taken a dongle\n", get_time() - table->sim->start,
-		id);
-	printf("[%zu] C%d  has taken a dongle\n", get_time() - table->sim->start,
-		id);
-	printf("[%zu] C%d is compiling\n", get_time() - table->sim->start, id);
 	pthread_mutex_lock(&table->coder.lock);
+	printf("[%zu] C%d  has taken a dongle\n", get_time() - table->sim->start,
+		id);
+	printf("[%zu] C%d  has taken a dongle\n", get_time() - table->sim->start,
+		id);
 	table->coder.last_compile = get_time();
+	printf("[%zu] C%d is compiling\n", get_time() - table->sim->start, id);
 	pthread_mutex_unlock(&table->coder.lock);
 	usleep(table->coder.time_to_compile * 1000);
 	d1->last_use = get_time();
