@@ -6,17 +6,17 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 10:53:53 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 15:55:23 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 11:45:01 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void free_table(t_table *table);
+void	free_table(t_table *table);
 
-void free_infos(t_infos *infos);
+void	free_infos(t_infos *infos);
 
-void free_all(t_moder *moder)
+void	free_all(t_moder *moder)
 {
 	free_table(moder->tables);
 	free(moder->tables);
@@ -27,9 +27,9 @@ void free_all(t_moder *moder)
 	free(moder);
 }
 
-void free_table(t_table *table)
+void	free_table(t_table *table)
 {
-	int id;
+	int	id;
 
 	id = table->table_id;
 	while (table->table_id != id)
@@ -41,7 +41,7 @@ void free_table(t_table *table)
 	}
 }
 
-void free_infos(t_infos *infos)
+void	free_infos(t_infos *infos)
 {
 	pthread_mutex_destroy(&infos->lock);
 	pthread_mutex_destroy(&infos->moder_lock);

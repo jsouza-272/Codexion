@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_config config;
-	t_moder *moder;
+	t_config	config;
+	t_moder		*moder;
 
 	config = parser(argc, argv);
 	moder = init(config);

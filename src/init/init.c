@@ -6,24 +6,23 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/09 15:23:33 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/10 11:50:05 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	create_table(t_table	*table, t_table	*tables,
-	t_config	c, size_t	i, t_infos *infos, t_simulation *sim);
+void	create_table(t_table *table, t_table *tables, t_config c, size_t i);
 
-void	create_dongle(t_dongle	*dongle, t_config	c);
+void	create_dongle(t_dongle *dongle, t_config c);
 
-void	create_coder(t_coder	*coder, t_config	c, t_table	*table);
+void	create_coder(t_coder *coder, t_config c, t_table *table);
 
 t_table	*init_tables(t_config c, t_moder *moder);
 
-t_moder *init(t_config c)
+t_moder	*init(t_config c)
 {
-	t_moder *moder;
+	t_moder	*moder;
 
 	moder = ft_calloc(1, sizeof(t_moder));
 	if (!moder)
@@ -47,8 +46,8 @@ t_moder *init(t_config c)
 t_table	*init_tables(t_config c, t_moder *moder)
 {
 	t_table	*tables;
-	t_infos *infos;
-	int	i;
+	t_infos	*infos;
+	int		i;
 
 	tables = ft_calloc(c.number_of_coders, sizeof(t_table));
 	if (!tables)
@@ -57,34 +56,32 @@ t_table	*init_tables(t_config c, t_moder *moder)
 	i = 0;
 	while (i < c.number_of_coders)
 	{
-		create_table(&tables[i], tables, c, i, infos, &moder->sim);
+		create_table(&tables[i], tables, c, i);
+		tables[i].sim = &moder->sim;
+		tables[i].infos = infos;
 		i++;
 	}
-	return tables;
+	return (tables);
 }
 
-void	create_table(t_table	*table, t_table	*tables,
-	t_config	c, size_t	i, t_infos *infos, t_simulation *sim)
+void	create_table(t_table *table, t_table *tables, t_config c, size_t i)
 {
 	table->table_id = i + 1;
 	table->next = &tables[(i + 1) % c.number_of_coders];
-	table->prev = &tables[(i + c.number_of_coders - 1)
-		% c.number_of_coders];
+	table->prev = &tables[(i + c.number_of_coders - 1) % c.number_of_coders];
 	table->right_dongle = &tables[(i + 1) % c.number_of_coders].dongle;
-	table->infos = infos;
-	table->sim = sim;
 	create_dongle(&table->dongle, c);
 	create_coder(&table->coder, c, table);
 }
 
-void	create_dongle(t_dongle	*dongle, t_config	c)
+void	create_dongle(t_dongle *dongle, t_config c)
 {
 	dongle->last_use = 0;
 	dongle->dongle_cooldown = c.dongle_cooldown;
 	pthread_mutex_init(&dongle->lock, NULL);
 }
 
-void	create_coder(t_coder	*coder, t_config	c, t_table	*table)
+void	create_coder(t_coder *coder, t_config c, t_table *table)
 {
 	coder->last_compile = 0;
 	coder->time_to_burnout = c.time_to_burnout;

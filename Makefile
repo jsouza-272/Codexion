@@ -7,12 +7,13 @@ clean:
 	@rm codexion
 
 norm:
+	clear
 	norminette
 
 run: all
 	clear
 #	./codexion <number_of_coders> <time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor> <number_of_compiles_required> <dongle_cooldown> <scheduler>
-	./codexion 			2				1000				100				100				100						20						400			 $(SCHEDULER)
+	./codexion 			2				1000				100				100				100						1						400			 $(SCHEDULER)
 	@rm codexion
 
 debug: all

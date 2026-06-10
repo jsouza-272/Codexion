@@ -32,7 +32,7 @@ void	parser_error(int error_id)
 		fprintf(stderr, "Error: time_to_refactor must be at least 1\n");
 	else if (error_id == 6)
 		fprintf(stderr, "Error: number_of_compiles_required must be \
-			 at least 1\n");
+				at least 1\n");
 	else if (error_id == 7)
 		fprintf(stderr, "Error: dongle_cooldown must be at least 1\n");
 	else if (error_id == 8)

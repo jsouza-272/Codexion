@@ -12,10 +12,10 @@
 
 #include "codexion.h"
 
-void fifo(t_moder *moder)
+void	fifo(t_moder *moder)
 {
-	int id;
-	size_t i;
+	int		id;
+	size_t	i;
 
 	id = (moder->infos->last_id % moder->nb_coders) + 1;
 	i = 0;
