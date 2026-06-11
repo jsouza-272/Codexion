@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 15:41:08 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/11 11:35:24 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_errors(int error_id, t_table *table, t_infos *infos, t_moder *moder)
 	}
 	if (error_id == 10)
 	{
-		thread_mutex_lock(&moder->sim.lock);
+		pthread_mutex_lock(&moder->sim.lock);
 		moder->sim.continue_sim = 2;
 		pthread_cond_broadcast(&moder->sim.cond);
 		pthread_mutex_unlock(&moder->sim.lock);

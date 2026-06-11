@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 14:06:36 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 15:15:02 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/11 11:43:48 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*check_burnout(void *arg)
 				- table->sim->start >= table->coder.time_to_burnout
 				&& table->sim->start && !table->coder.last_compile))
 		{
+			pthread_mutex_unlock(&table->coder.lock);
 			if (check_burnout_aux(moder, table))
 				break ;
 		}
@@ -47,6 +48,8 @@ void	*check_burnout(void *arg)
 
 int	check_burnout_aux(t_moder *moder, t_table *table)
 {
+	usleep(1000);
+	pthread_mutex_lock(&table->coder.lock);
 	if ((get_time() - table->coder.last_compile >= table->coder.time_to_burnout
 			&& table->coder.last_compile) || (get_time()
 			- table->sim->start >= table->coder.time_to_burnout

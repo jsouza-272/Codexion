@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 15:28:42 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/11 11:43:22 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*moder_routine(void *arg)
 		moder->current_compiles += moder->infos->counter;
 		moder->infos->counter = 0;
 	}
-	if (moder->sim.continue_sim == 1)
+	if (moder->sim.continue_sim == 1 || moder->sim.continue_sim == 0)
 	{
 		moder->sim.continue_sim = 0;
 		ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
