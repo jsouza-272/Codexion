@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 10:12:18 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 15:18:13 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 10:13:25 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "types.h"
 # include <limits.h>
 # include <stdint.h>
-# include <stdio.h>
 # include <sys/time.h>
 
 void	ft_bzero(void *s, size_t n);

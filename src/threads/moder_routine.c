@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 10:36:43 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/11 11:43:22 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 10:20:16 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ void	join_all_threads(t_moder *moder);
 
 void	moder_routine_aux(t_moder *moder);
 
+void	moder_routine_aux2(t_moder *moder);
+
 void	*moder_routine(void *arg)
 {
 	t_moder	*moder;
 
 	moder = (t_moder *)arg;
 	wait_start(moder);
+	pthread_mutex_lock(&moder->sim.lock);
 	moder->sim.start = get_time();
+	pthread_mutex_unlock(&moder->sim.lock);
 	while (moder->nbcr > moder->current_compiles && moder->sim.continue_sim == 1)
 	{
 		moder_routine_aux(moder);
@@ -38,11 +42,7 @@ void	*moder_routine(void *arg)
 		moder->infos->counter = 0;
 	}
 	if (moder->sim.continue_sim == 1 || moder->sim.continue_sim == 0)
-	{
-		moder->sim.continue_sim = 0;
-		ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
-		join_all_threads(moder);
-	}
+		moder_routine_aux2(moder);
 	return (NULL);
 }
 
@@ -72,4 +72,13 @@ void	join_all_threads(t_moder *moder)
 		pthread_join(table->coder.thread, NULL);
 		table = table->next;
 	}
+}
+
+void	moder_routine_aux2(t_moder *moder)
+{
+	pthread_mutex_lock(&moder->sim.lock);
+	moder->sim.continue_sim = 0;
+	ft_memset(moder->infos->ids, -1, moder->infos->list_size * sizeof(int));
+	join_all_threads(moder);
+	pthread_mutex_unlock(&moder->sim.lock);
 }

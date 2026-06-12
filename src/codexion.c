@@ -6,11 +6,12 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:27:50 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:55 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 10:20:23 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <stddef.h>
 
 int	main(int argc, char **argv)
 {

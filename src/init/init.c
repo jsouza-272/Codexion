@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 12:35:48 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 15:18:24 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 09:55:06 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_moder	*init(t_config c)
 	pthread_mutex_init(&moder->sim.lock, NULL);
 	pthread_create(&moder->thread, NULL, &moder_routine, moder);
 	pthread_create(&moder->thread2, NULL, &check_burnout, moder);
+	pthread_mutex_lock(&moder->sim.lock);
 	moder->nb_coders = c.number_of_coders;
 	moder->nbcr = c.number_of_compiles_required * c.number_of_coders;
 	moder->scheduler = c.scheduler;
@@ -40,6 +41,7 @@ t_moder	*init(t_config c)
 	moder->infos = moder->tables->infos;
 	moder->sim.continue_sim = 1;
 	moder->sim.moder = moder;
+	pthread_mutex_unlock(&moder->sim.lock);
 	pthread_cond_broadcast(&moder->sim.cond);
 	return (moder);
 }

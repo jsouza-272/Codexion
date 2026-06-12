@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:19:30 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/10 12:31:17 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 10:13:34 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdio.h>
 
 t_config	parser(int argc, char **argv);
 t_moder		*init(t_config c);
