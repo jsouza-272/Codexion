@@ -6,7 +6,7 @@
 /*   By: jsouza <jsouza@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:03:13 by jsouza            #+#    #+#             */
-/*   Updated: 2026/06/11 11:35:24 by jsouza           ###   ########.fr       */
+/*   Updated: 2026/06/12 10:29:28 by jsouza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	parser_error(int error_id)
 
 void	init_errors(int error_id, t_table *table, t_infos *infos, t_moder *moder)
 {
+	pthread_mutex_unlock(&moder->sim.lock);
 	if (error_id == 12)
 	{
 		free(infos);
